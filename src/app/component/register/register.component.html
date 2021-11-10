@@ -1,0 +1,145 @@
+<div class="d-flex justify-content-center flex-wrap">
+  <form *ngIf="!isSuccessful"
+        name="form"
+        (ngSubmit)="formG.form.valid && onSubmit()"
+        #formG="ngForm"
+        novalidate class="card">
+    <div class="row">
+      <div class="col mb-2">
+        <label>Firstname</label>
+        <input
+          type="text"
+          class="form-control"
+          name="firstname"
+          placeholder="firstname"
+          required
+          minlength="3"
+          maxlength="20"
+          [(ngModel)]="form.firstname"
+          #firstname="ngModel"
+          [ngModelOptions]="{standalone: true}">
+        <div class="alert-danger" *ngIf="firstname.errors && formG.submitted">
+          <div *ngIf="firstname.errors.required">Username is required</div>
+          <div *ngIf="firstname.errors.minlength">
+            Firstname must be at least 3 characters
+          </div>
+          <div *ngIf="firstname.errors.maxlength">
+            Firstname must be at most 20 characters
+          </div>
+        </div>
+      </div>
+      <div class="col mb-2">
+        <label>Lastname</label>
+        <input type="text"
+               class="form-control"
+               placeholder="Lastname"
+               required
+               minlength="3"
+               maxlength="20"
+               [(ngModel)]="form.lastname"
+               #lastname="ngModel"
+               [ngModelOptions]="{standalone: true}">
+        <div class="alert-danger" *ngIf="lastname.errors && formG.submitted">
+          <div *ngIf="lastname.errors.required">Username is required</div>
+          <div *ngIf="lastname.errors.minlength">
+            Lastname must be at least 3 characters
+          </div>
+          <div *ngIf="lastname.errors.maxlength">
+            Lastname must be at most 20 characters
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label>Username</label>
+      <input
+        type="text"
+        class="form-control"
+        name="username"
+        placeholder="username"
+        [(ngModel)]="form.username"
+        required
+        minlength="3"
+        maxlength="20"
+        #username="ngModel"
+        [ngModelOptions]="{standalone: true}"/>
+      <div class="alert-danger" *ngIf="username.errors && formG.submitted">
+        <div *ngIf="username.errors.required">Username is required</div>
+        <div *ngIf="username.errors.minlength">
+          Username must be at least 3 characters
+        </div>
+        <div *ngIf="username.errors.maxlength">
+          Username must be at most 20 characters
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-2">
+      <label>Phone</label>
+      <input
+        type="tel"
+        class="form-control"
+        name="phone"
+        placeholder="phone"
+        required
+        minlength="10"
+        maxlength="10"
+        [(ngModel)]="form.phone"
+        (keypress)="isNumberKey($event)"
+        #phone="ngModel"
+        [ngModelOptions]="{standalone: true}"/>
+      <div class="alert-danger" *ngIf="phone.errors && formG.submitted">
+        <div *ngIf="phone.errors.required">Phone is required</div>
+        <div *ngIf="phone.errors.minlength">
+          Phone must be at least 10 characters
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-2">
+      <label for="exampleInputEmail1">Email address</label>
+      <input [(ngModel)]="form.email"
+             [ngModelOptions]="{standalone: true}"
+             required
+             email
+             #email="ngModel"
+             type="email"
+             class="form-control" id="exampleInputEmail1"
+             aria-describedby="emailHelp"
+             placeholder="Enter email">
+      <div class="alert-danger" *ngIf="email.errors && formG.submitted">
+        <div *ngIf="email.errors.required">Email is required</div>
+        <div *ngIf="email.errors.email">
+          Email must be a valid email address
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-4">
+      <label for="exampleInputPassword1">Password</label>
+      <input [(ngModel)]="form.password"
+             [ngModelOptions]="{standalone: true}"
+             required
+             minlength="6"
+             #password="ngModel"
+             type="password"
+             class="form-control"
+             id="exampleInputPassword1" placeholder="Password">
+      <div class="alert-danger" *ngIf="password.errors && formG.submitted">
+        <div *ngIf="password.errors.required">Password is required</div>
+        <div *ngIf="password.errors.minlength">
+          Password must be at least 6 characters
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block mb-2">Sign Up</button>
+    <div class="alert alert-warning" *ngIf="formG.submitted && isSignUpFailed">
+      Signup failed!<br/>{{ errorMessage }}
+    </div>
+    <div class="alert alert-success" *ngIf="formG.submitted && !isSignUpFailed">
+      Signup successfull!<br/>
+    </div>
+    <div class="justify-content-center mt-3">
+      you already have account
+      <a routerLink="/login">Sign in</a>
+    </div>
+  </form>
+</div>

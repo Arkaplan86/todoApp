@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <div class="container-fluid">
+    <img src="favicon.ico" class="ms-3 mx-2" size="25px">
+
+    <a class="navbar-brand">TO DO</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!--div class="collapse navbar-collapse" id="navbarNavDropdown"-->
+    <div class="nav justify-content-end collapse navbar-collapse" id="navbarNavDropdown">
+
+      <form class="d-flex mx-2">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit"> <i class="bi bi-search"></i></button>
+      </form>
+      <ul class="navbar-nav nav">
+
+
+        <button class="nav-item btn btn-outline-dark" type="button" (click)="createTodo()" *ngIf="!isTodoCreateStatus">
+          <i class="bi bi-plus-lg"></i>
+
+          <!--a class="nav-link nav-link-ltr active" aria-current="page" routerLink="/home">Home</a-->
+        </button>
+
+
+
+        <button class="nav-item mx-2 btn btn-outline-dark" type="button">
+          <i class="bi bi-sort-alpha-down"></i>
+
+          <!--a class="nav-link nav-link-ltr active" aria-current="page" routerLink="/home">Home</a-->
+        </button>
+
+
+        <button class="nav-item btn btn-outline-dark" type="button" (click)="deleteTodo()" >
+          <i class="bi bi-trash"></i>
+
+          <!--a class="nav-link nav-link-ltr active" aria-current="page" routerLink="/home">Home</a-->
+        </button>
+
+
+
+
+
+        <!--li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            {{ 'language' | translate }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item"(click)="translateService.use('tr')">{{ 'turkish' | translate }}</a></li>
+            <li><a class="dropdown-item" (click)="translateService.use('en')">{{ 'english' | translate }}</a></li>
+          </ul>
+        </li-->
+      </ul>
+
+
+
+
+
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit" (click)="logout()">Log out</button>
+      </form>
+    </div>
+  </div>
+</nav>
+

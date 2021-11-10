@@ -1,0 +1,230 @@
+
+<div class="container-fluid justify-content-center position-relative">
+  <div class="row">
+    <div class="col-md-3 bg-primary">
+
+      <ul class="list-group my-2">
+        <button class="list-group-item d-flex justify-content-between align-items-start list-group-item-action"
+                (click)="getTodayTodo()">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">
+              <div class="bi bi-calendar-day"><strong class="mx-3">Today</strong></div>
+            </div>
+          </div>
+          <span class="badge bg-primary rounded-pill">{{dayTodoList.length}}</span>
+        </button>
+        <button class="list-group-item d-flex justify-content-between align-items-start list-group-item-action"
+                (click)="getWeekTodoList()">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">
+              <div class="bi bi-calendar-week"><strong class="mx-3 ">Week</strong></div>
+            </div>
+          </div>
+          <span class="badge bg-primary rounded-pill">{{weekTodoList.length}}</span>
+        </button>
+        <div *ngFor="let item of list" >
+
+          <!--div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="zzz">
+
+          </div-->
+
+          <div class="list-group">
+
+            <button class="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
+                    (click)="getListTodo(item.id)">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{item.id}}" id="flexCheckDefault"
+                           [(ngModel)]="item.checked" (ngModelChange)="updateAllComplete()">
+
+                    <div class="bi bi-card-list"><strong class="mx-3 ">{{item.description}}</strong></div>
+                  </div>
+                </div>
+              </div>
+              <span class="badge bg-primary rounded-pill">{{item.todoList?.length}}</span>
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="mt-1">
+          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="create new list"
+                 [(ngModel)]="text" (ngModelChange)="activateButton()">
+        </div>
+
+        <!--button
+          class="list-group-item d-flex justify-content-between align-items-start list-group-item-action sticky-bottom bg-light"
+          (click)="createList()" [disabled]="isActive">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">
+              <div class="bi bi-plus-lg"><strong class="mx-3">Add</strong></div>
+            </div>
+          </div>
+        </button-->
+
+        <button (click)="createList()" type="button"
+                class="btn btn-light mt-1 list-group-item d-flex justify-content-between align-items-start list-group-item-action sticky-bottom"
+                [ngClass]="{ 'disabled' : isActive }">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">
+              <div class="bi bi-plus-lg"><strong class="mx-3">Add</strong></div>
+            </div>
+          </div>
+        </button>
+
+        <button (click)="deleteList()" type="button"
+                class="btn btn-light mt-1 list-group-item d-flex justify-content-between align-items-start list-group-item-action sticky-bottom"
+                [disabled]="isDeleteActive">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">
+              <div class="bi bi-trash"><strong class="mx-3">Delete</strong></div>
+            </div>
+          </div>
+        </button>
+
+      </ul>
+
+    </div>
+    <div class="col-md-9" style="background-color: #031D44">
+      <div class="mt-1" >
+        <input *ngIf="!isDeleteActive" type="text" class="form-control" id="exampleFormControlInput2" placeholder="create new todo"
+               [(ngModel)]="todoText" (ngModelChange)="activateTodoButton()">
+
+
+
+      </div>
+
+      <!--div class="list-group my-3">
+        <div class="row">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+          <button type="button" class="list-group-item list-group-item-action"
+                  *ngFor="let item of todoList">{{item.description}}</button>
+        </div>
+      </div-->
+
+
+
+      <div *ngFor="let item of todoList">
+
+        <button class="list-group-item d-flex justify-content-between align-items-start list-group-item-action my-2">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="flexCheckDefault2" [(ngModel)]="item.checked" (ngModelChange)="deleteTodoAllComplete()">
+                <div class="bi bi-list"><strong class="mx-3 ">{{item.description}}</strong></div>
+
+              </div>
+            </div>
+          </div>
+          <span class="badge bg-primary rounded-pill">5</span>
+
+          <!--fieldset class="rating">
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label for="star5">5 stars</label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4">4 stars</label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3">3 stars</label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2">2 stars</label>
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1">1 star</label>
+          </fieldset-->
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="row col-lg-12">
+  <div class="col-lg-2" style="background-color: antiquewhite">
+
+
+    <!--div class="accordion" id="accordionExample">
+      <div class="accordion-item" *ngFor="let item of todoList; let i = index">
+        <h2 class="accordion-header" [id]="'heading'+i">
+
+          <button class="accordion-button" [ngClass]="{ 'collapsed': i != 0 }" type="button" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+            {{i}} {{item.description}}
+          </button>
+        </h2>
+        <div [id]="'collapse'+i" class="accordion-collapse collapse" [ngClass]="{ 'show': i == 0 }"
+             [attr.aria-labelledby]="'heading'+i" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the first item's accordion body.</strong>
+            <code>.accordion-body</code>
+          </div>
+        </div>
+      </div>
+    </div-->
+
+
+    <!--div class="accordion" id="accordionExample">
+      <div class="accordion-item" *ngFor="let item of todoList; let i = index">
+        <h2 class="accordion-header" [id]="'heading'+i">
+
+          <button class="accordion-button" [ngClass]="{ 'collapsed': i != 0 }" type="button" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+            {{i}} {{item.description}}
+          </button>
+        </h2>
+        <div [id]="'collapse'+i" class="accordion-collapse collapse" [ngClass]="{ 'show': i == 0 }"
+             [attr.aria-labelledby]="'heading'+i" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the first item's accordion body.</strong>
+            <code>.accordion-body</code>
+          </div>
+        </div>
+      </div>
+    </div-->
+
+
+    <!--div class="row mx-2 my-2">
+
+
+      <p>USER INFO</p>
+      <h5>username : {{user.username}}</h5>
+      <h5>Firstname : {{user.firstname}}</h5>
+      <h5>Lastname : {{user.lastname}}</h5>
+      <h5>Phone : {{user.phone}}</h5>
+      <h5>Email : {{user.email}}</h5>
+    </div-->
+
+
+    <!--button class="list-group-item d-flex justify-content-between align-items-start list-group-item-action sticky-bottom my-2 " >
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">
+          <div class="bi bi-plus-lg"><strong class="mx-3">Add</strong></div>
+        </div>
+      </div>
+    </button-->
+  </div>
+
+
+  <!--div class="col-lg-10">
+    <div class="accordion" id="accordionExample" >
+      <div class="accordion-item" *ngFor="let item of todoList; let i = index">
+        <h2 class="accordion-header" [id]="'heading'+i">
+
+          <button class="accordion-button" [ngClass]="{ 'collapsed': i != 0 }" type="button" data-bs-toggle="collapse"
+                  [attr.data-bs-target]="'#collapse'+i" aria-expanded="true" [attr.aria-controls]="'collapse'+i">
+            {{i}} {{item.description}}
+          </button>
+        </h2>
+        <div [id]="'collapse'+i" class="accordion-collapse collapse" [ngClass]="{ 'show': i == 0 }"
+             [attr.aria-labelledby]="'heading'+i" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the first item's accordion body.</strong>
+            <code>.accordion-body</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div-->
+
+</div>

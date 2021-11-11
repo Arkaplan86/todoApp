@@ -21,8 +21,11 @@ export class NavbarComponent implements OnInit {
   deleteTodoItems: Array<number> = [];
   isDeleteTodoDisabled = true;
 
-
-  constructor(private tokenStorageService: TokenStorageService, private dataTransfer: DataTransferService, private router: Router, private auth: AuthService, private todoService: TodoService) {
+  constructor(private tokenStorageService: TokenStorageService,
+              private dataTransfer: DataTransferService,
+              private router: Router,
+              private auth: AuthService,
+              private todoService: TodoService) {
     this.dataTransfer.currentIsTodoStatus.subscribe(result => {
       this.isTodoCreateStatus = result;
     });
@@ -34,7 +37,7 @@ export class NavbarComponent implements OnInit {
     this.dataTransfer.currentDeleteTodoData.subscribe(data => {
       this.deleteTodoItems = data;
     })
-    if(this.deleteTodoItems.length != 0){
+    if (this.deleteTodoItems.length != 0) {
       this.isDeleteTodoDisabled = false;
     }
   }
@@ -56,7 +59,6 @@ export class NavbarComponent implements OnInit {
     this.todoService.createTodo(this.todo).subscribe(response => {
       this.response = response;
     });
-    //this.getTodoListById(this.todo.listId);
     setTimeout(() => {
       this.todoService.getTodoList(this.todo.listId).subscribe(data => {
         this.todoList = data;
@@ -66,18 +68,10 @@ export class NavbarComponent implements OnInit {
 
     }, 300);
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.dataTransfer.changeTodoListData(this.todoList);
 
-    },500);
-  }
-
-  getTodoListById(id: number) {
-    this.todoService.getTodoList(id).subscribe(data => {
-      this.todoList = data;
-      console.log('DATA TRANSFER', this.todoList);
-    })
-    this.dataTransfer.changeTodoListData(this.todoList);
+    }, 500);
   }
 
   deleteTodo() {
@@ -85,8 +79,21 @@ export class NavbarComponent implements OnInit {
       this.response = response;
     });
 
+    setTimeout(() => {
+      this.todoService.getTodoList(this.todo.listId).subscribe(data => {
+        this.todoList = data;
+        console.log('DATA TRANSFER', this.todoList);
+      })
+      console.log('DATA TRANSFER 0', this.todoList);
 
+    }, 300);
 
+    setTimeout(() => {
+      this.dataTransfer.changeTodoListData(this.todoList);
+
+    }, 1000);
   }
+
+
 
 }

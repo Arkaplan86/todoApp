@@ -43,17 +43,12 @@ export class LoginComponent implements OnInit{
         this.roles = this.tokenStorage.getUser().roles;
         this.router.navigate(['/home']);
         this.dataTransfer.changeLoginStatus(true);
-      //  this.reloadPage();
       },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     );
-  }
-
-  reloadPage(): void {
-    window.location.reload();
   }
 
 }
